@@ -21,16 +21,14 @@ describe('Arrow component', () => {
 
     // HACK: wrapping DIV needed to make Enzyme happy for now
     const wrapper = mount(
-      <div>
-        <ManagerContext.Provider
-          value={{
-            setReferenceNode,
-            referenceNode: undefined,
-          }}
-        >
-          <Reference>{({ ref }) => <div ref={ref} />}</Reference>
-        </ManagerContext.Provider>
-      </div>
+      <ManagerContext.Provider
+        value={{
+          setReferenceNode,
+          referenceNode: undefined,
+        }}
+      >
+        <Reference>{({ ref }) => <div ref={ref} />}</Reference>
+      </ManagerContext.Provider>
     );
     expect(wrapper.children()).toMatchSnapshot();
   });

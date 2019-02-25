@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { injectGlobal } from 'react-emotion';
 import { compose, withState } from 'recompose';
-import { Transition } from 'react-spring';
+import { Transition } from 'react-spring/renderprops';
 import { Manager, Reference, Popper } from '../src';
 import {
   Main,
@@ -33,8 +33,6 @@ injectGlobal`
     color: white;
   }
 `;
-
-const Null = () => null;
 
 const placements = ['top', 'right', 'bottom', 'left'];
 
@@ -112,12 +110,12 @@ const Demo = enhance(
             )}
           </Reference>
           <Transition
+            items={isPopper2Open}
             from={{ opacity: 0, rotation: '180deg', scale: 0.5, top: -20 }}
             enter={{ opacity: 1, rotation: '0deg', scale: 1, top: 0 }}
             leave={{ opacity: 0, rotation: '180deg', scale: 0.5, top: -20 }}
           >
-            {isPopper2Open
-              ? ({ rotation, scale, opacity, top: topOffset }) => (
+            {isPopper2Open => isPopper2Open && (({ rotation, scale, opacity, top: topOffset }) => (
                   <Popper
                     placement="bottom"
                     modifiers={{
@@ -165,8 +163,7 @@ const Demo = enhance(
                       </PopperBox>
                     )}
                   </Popper>
-                )
-              : Null}
+                ))}
           </Transition>
         </Manager>
       </Main>
